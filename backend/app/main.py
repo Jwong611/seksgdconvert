@@ -2,6 +2,20 @@ from fastapi import FastAPI, Query, HTTPException
 
 app = FastAPI(title="Converter API")
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://143.198.83.169:5173",
+        "http://localhost:5173",  # optional, for local dev
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 # Example fixed rate. Replace with a live rate source if you want.
 SEK_TO_SGD =  0.140056  # 1 SEK = 0.12 SGD
 
