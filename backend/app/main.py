@@ -3,7 +3,7 @@ from fastapi import FastAPI, Query, HTTPException
 app = FastAPI(title="Converter API")
 
 # Example fixed rate. Replace with a live rate source if you want.
-SEK_TO_SGD = 0.12  # 1 SEK = 0.12 SGD
+SEK_TO_SGD =  0.140056  # 1 SEK = 0.12 SGD
 
 
 @app.get("/")

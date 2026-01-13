@@ -9,7 +9,7 @@ import React, { useMemo, useState } from "react";
 export default function CurrencyConverterPage() {
   // Replace this with a live rate if you want:
   // 1 SEK = 0.12 SGD (example)
-  const SEK_TO_SGD = 0.140056. ;
+  const SEK_TO_SGD = 0.140056 ;
 
   const [direction, setDirection] = useState("SEK_TO_SGD"); // or "SGD_TO_SEK"
   const [leftValue, setLeftValue] = useState("100"); // string for easy typing
@@ -51,8 +51,7 @@ export default function CurrencyConverterPage() {
       <div style={styles.card}>
         <h1 style={styles.title}>SEK ⇄ SGD Converter</h1>
         <p style={styles.subtitle}>
-          Using example rate: <b>1 SEK = {SEK_TO_SGD} SGD</b> (replace with live
-          rate if needed)
+         <b>1 SEK = {SEK_TO_SGD} SGD</b>
         </p>
 
         <div style={styles.row}>
@@ -98,7 +97,7 @@ export default function CurrencyConverterPage() {
 
 const styles = {
   page: {
-    minHeight: "100vh",
+    minHeight: "100svh",              // better than 100vh on mobile
     display: "grid",
     placeItems: "center",
     padding: 24,
@@ -106,31 +105,47 @@ const styles = {
       'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial',
     background: "#fafafa",
   },
+
   card: {
     width: "min(720px, 100%)",
+    maxWidth: 720,
     padding: 24,
     borderRadius: 16,
     background: "white",
     boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
+    margin: "0 auto",                 // centers if page ever stops being grid
   },
-  title: { margin: 0, fontSize: 28 },
-  subtitle: { marginTop: 8, marginBottom: 20, color: "#444" },
+
+  title: { margin: 0, fontSize: 28, textAlign: "center" },
+  subtitle: {
+    marginTop: 8,
+    marginBottom: 20,
+    color: "#444",
+    textAlign: "center",
+  },
+
   row: {
     display: "grid",
-    gridTemplateColumns: "1fr auto 1fr",
+    gridTemplateColumns: "1fr 52px 1fr",  // fixed center column for arrow
     gap: 12,
-    alignItems: "end",
+    alignItems: "end",                 // centers arrow vertically vs inputs
   },
+
   field: { display: "flex", flexDirection: "column", gap: 8 },
-  label: { fontSize: 13, color: "#555" },
+  label: { fontSize: 13, color: "#555", lineHeight: 1.2,
+    minHeight: 18,},
+
   input: {
     height: 44,
+    width: "100%",
     borderRadius: 10,
     border: "1px solid #ddd",
     padding: "0 12px",
     fontSize: 16,
     outline: "none",
+    boxSizing: "border-box",
   },
+
   swapBtn: {
     height: 44,
     width: 52,
@@ -139,7 +154,15 @@ const styles = {
     background: "white",
     cursor: "pointer",
     fontSize: 18,
-    lineHeight: "44px",
+
+    display: "grid",        // centers the arrow inside the button
+    placeItems: "center",
+
+    justifySelf: "center",  // centers the button within its grid column
+    alignSelf: "end",    // centers vertically within the row
+    padding: 0,
   },
-  hint: { marginTop: 16, color: "#666", fontSize: 13 },
+
+  hint: { marginTop: 16, color: "#666", fontSize: 13, textAlign: "center" },
 };
+
