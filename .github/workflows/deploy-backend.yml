@@ -12,19 +12,19 @@ jobs:
       - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
+          printf "%s" "${{ secrets.DEPLOY_KEY_B64 }}" | base64 --decode > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
+          ssh -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
             set -e
             cd /opt/seksgdconvert
             git fetch --all
             git reset --hard origin/main
 
-            cd /opt/seksgdconvert/backend
+            cd backend
             /opt/seksgdconvert/backend/.venv/bin/pip install -r requirements.txt
 
             sudo systemctl restart seksgdconvert
