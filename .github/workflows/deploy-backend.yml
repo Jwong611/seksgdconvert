@@ -31,6 +31,7 @@ jobs:
             cd backend
             /opt/seksgdconvert/backend/.venv/bin/pip install -r requirements.txt
 
-            sudo systemctl restart seksgdconvert
-            sudo systemctl status seksgdconvert --no-pager
+            sudo /usr/bin/systemctl restart seksgdconvert
+            sudo /usr/bin/systemctl status seksgdconvert --no-pager
+
           EOF
